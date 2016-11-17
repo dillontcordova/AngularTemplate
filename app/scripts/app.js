@@ -1,10 +1,5 @@
 /**
- * Created by dillo_000 on 10/25/2016.
+ * Created by dillo_000 on 11/16/2016.
  */
 angular
-    .module('app', ['ui.bootstrap'])
-    .controller('mainController', function($scope) {
-        
-
-
-});
+    .module('app', ['ngRoute','angularCSS','ui.bootstrap']);
