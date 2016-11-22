@@ -1,0 +1,17 @@
+<!-- When this element is clicked, hide the tooltip -->
+<div id="main" ng-click="editorCtrl.hideToolTip()">
+
+    <!-- This is the tooltip. It is shown only when the showtooltip variable is truthful -->
+    <div class="tooltip" ng-click="$event.stopPropagation()" ng-show="editorCtrl.showToolTip">
+
+        <!-- ng-model binds the contents of the text field with the "value" model.
+         Any changes to the text field will automatically update the value, and
+         all other bindings on the page that depend on it.  -->
+        <input type="text" ng-model="editorCtrl.value" />
+    </div>
+
+    <!-- Call a method defined in the InlineEditorController that toggles
+     the showtooltip variable -->
+    <p ng-click="editorCtrl.toggleToolTip($event)">{{editorCtrl.value}}</p>
+
+</div>

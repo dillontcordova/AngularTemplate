@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app='app'>
+<html>
     <head>
         <meta charset="utf-8">
         <link href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet">
@@ -7,8 +7,10 @@
     </head>
 
     <body>
-        <div id="container" ng-controller="navBarController as navCtrl">
-            <navbar></navbar>
+        <div id="container" ng-app='app'>
+            <navbar ng-controller="navBarController as navCtrl"></navbar>
+            <instantsearch ng-controller="instantSearchController as searchCtrl"></instantsearch>
+            <inlineeditor ng-controller="inlineEditorController as editorCtrl"></inlineeditor>
         </div>
 
         <!-- Plugins -->
