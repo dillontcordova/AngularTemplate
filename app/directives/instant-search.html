@@ -5,7 +5,7 @@
 </div>
 
 <ul>
-    <li ng-repeat="item in searchCtrl.items | searchFor:searchCtrl.searchString">
+    <li ng-repeat="item in (searchCtrl.items | searchFor:searchCtrl.searchString)">
         <a href="{{item.url}}"><img ng-src="{{item.image}}" /></a>
         <p>{{item.title}}</p>
     </li>

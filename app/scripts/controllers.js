@@ -6,7 +6,10 @@ angular
 
     .controller('navBarController', function() {
         this.active = '';
-    })
+    });
+
+angular
+    .module('app')
     .controller('inlineEditorController', function() {
         var me = this;
         this.value = 'Edit me.';
@@ -21,16 +24,19 @@ angular
 
     });
 
+
+
+
 angular
     .module('appInstantSearch')
     .filter('searchFor', function () {
-        return function (_arr, _searchString) {
+        return function (_items, _searchString) {
             if(!_searchString){
-                return _arr;
+                return _items;
             }
             var result = [];
             _searchString = _searchString.toLowerCase();
-            angular.forEach(_arr, function (item) {
+            angular.forEach(_items, function (item) {
                 if(item.title.toLowerCase().indexOf(_searchString) !== -1) {
                     result.push(item);
                 }

@@ -21,6 +21,9 @@ angular
         }
     });
 
+
+
+
 angular
     .module('appInstantSearch')
     
