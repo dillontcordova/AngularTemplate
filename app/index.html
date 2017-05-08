@@ -2,29 +2,23 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/styles.css">
     </head>
 
     <body>
-        <div id="container" ng-app='app'>
-            <navbar ng-controller="navBarController as navCtrl"></navbar>
+        <div ng-app='app'>
             <instantsearch ng-controller="instantSearchController as searchCtrl"></instantsearch>
-            <inlineeditor ng-controller="inlineEditorController as editorCtrl"></inlineeditor>
         </div>
 
         <!-- Plugins -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/angular-animate/angular-animate.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/angular-css/angular-css.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
-
-        <!-- Library Scripts -->
-        <script src="scripts/libs/Assert.js"></script>
-        <script src="scripts/libs/Polymorphism.js"></script>
 
         <!-- Code Scripts -->
         <script src="scripts/app.js"></script>

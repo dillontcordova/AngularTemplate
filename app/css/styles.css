@@ -1,9 +1,4 @@
 body {
-    font: 15px 'Open Sans', sans-serif;
-    color: white;
     text-align: center;
 }
 
-section, footer, header, aside, nav {
-    display: block;
-}

@@ -1,5 +1,5 @@
 /**
- * Created by dillo_000 on 11/16/2016.
+ * Created by dillo_000 on 5/8/2017.
  */
 angular
     .module('app')
@@ -8,20 +8,11 @@ angular
         return {
             restrict: 'EA',
             templateUrl: 'directives/navbar.html',
-            controllerAs: 'navCtrl',
+            controllerAs: 'searchCtrl',
             css: 'css/navbar.css'
         }
     })
-    .directive('inlineeditor', function() {
-        return {
-            restrict: 'EA',
-            templateUrl: 'directives/inline-editor.html',
-            controllerAs: 'editorCtrl',
-            css: 'css/inline-editor.css'
-        }
-    });
-
-
+;
 
 
 angular
@@ -34,4 +25,5 @@ angular
             controllerAs: 'searchCtrl',
             css: 'css/instant-search.css'
         }
-    });
+    })
+;

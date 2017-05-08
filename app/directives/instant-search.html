@@ -1,12 +1,16 @@
-<!-- Initialize a new AngularJS app and associate it with a module named "instantSearch"-->
-<div class="bar">
-    <!-- Create a binding between the searchString model and the text field -->
-    <input type="text" ng-model="searchCtrl.searchString" placeholder="Enter your search terms" />
-</div>
+<div class="container">
+    <div class="row searchbar">
+        <input type="text" ng-model="searchCtrl.searchString" placeholder="Search Movies..." />
+    </div>
 
-<ul>
-    <li ng-repeat="item in (searchCtrl.items | searchFor:searchCtrl.searchString)">
-        <a href="{{item.url}}"><img ng-src="{{item.image}}" /></a>
-        <p>{{item.title}}</p>
-    </li>
-</ul>
+    <navbar class="row"></navbar>
+
+    <ul>
+        <li class="row" ng-repeat="item in (searchCtrl | searchFor:searchCtrl.searchString)">
+            <img ng-src="{{item.poster}}"/>
+            <p>{{item.title}}</p>
+            <p>({{item.rating}})</p>
+            <p class="showtime" ng-repeat="time in item.showtimes">{{time}}</p>
+        </li>
+    </ul>
+</div>

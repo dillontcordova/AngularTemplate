@@ -1,80 +1,176 @@
 /**
- * Created by dillo_000 on 11/16/2016.
+ * Created by dillo_000 on 5/8/2017.
  */
-angular
-    .module('app')
-
-    .controller('navBarController', function() {
-        this.active = '';
-    });
-
-angular
-    .module('app')
-    .controller('inlineEditorController', function() {
-        var me = this;
-        this.value = 'Edit me.';
-        this.showToolTip = false;
-        this.hideToolTip = function(){
-            me.showToolTip = false;
-        };
-        this.toggleToolTip = function(e){
-            e.stopPropagation();
-            me.showToolTip = !me.showToolTip;
-        };
-
-    });
-
-
-
-
 angular
     .module('appInstantSearch')
     .filter('searchFor', function () {
-        return function (_items, _searchString) {
-            if(!_searchString){
-                return _items;
-            }
+        return function (_ctrl, _searchString) {
             var result = [];
+            var curTheater = {};
+            var movies = _ctrl.movies;
+            var theaters = _ctrl.theaters;
+            var curTheaterId = _ctrl.curTheaterId;
+            for (var i = 0, len = theaters.length; i < len; i++) {
+                if(theaters[i].id.indexOf(curTheaterId) !== -1) {
+                    curTheater = theaters[i];
+                    break;
+                }
+            }
+
             _searchString = _searchString.toLowerCase();
-            angular.forEach(_items, function (item) {
-                if(item.title.toLowerCase().indexOf(_searchString) !== -1) {
-                    result.push(item);
+            angular.forEach(movies, function (movie) {
+                if(movie.title.toLowerCase().indexOf(_searchString) !== -1) {
+                    if(curTheater.showtimes[movie.id]){
+                        movie.showtimes = curTheater.showtimes[movie.id];
+                        result.push(movie);
+                    }
                 }
             });
 
+            result.sort(function(a, b){
+                if(a.title > b.title) return 1;
+                return 0;
+            });
             return result;
         }
     })
     .controller('instantSearchController', function() {
         this.searchString = '';
-        this.items = [{
-                url: 'http://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap/',
-                title: '50 Must-have plugins for extending Twitter Bootstrap',
-                image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/07/featured_4-100x100.jpg'
-            }, {
-                url: 'http://tutorialzine.com/2013/08/simple-registration-system-php-mysql/',
-                title: 'Making a Super Simple Registration System With PHP and MySQL',
-                image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/08/simple_registration_system-100x100.jpg'
-            }, {
-                url: 'http://tutorialzine.com/2013/08/slideout-footer-css/',
-                title: 'Create a slide-out footer with this neat z-index trick',
-                image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/08/slide-out-footer-100x100.jpg'
-            }, {
-                url: 'http://tutorialzine.com/2013/06/digital-clock/',
-                title: 'How to Make a Digital Clock with jQuery and CSS3',
-                image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/06/digital_clock-100x100.jpg'
-            }, {
-                url: 'http://tutorialzine.com/2013/05/diagonal-fade-gallery/',
-                title: 'Smooth Diagonal Fade Gallery with CSS3 Transitions',
-                image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/05/featured-100x100.jpg'
-            }, {
-                url: 'http://tutorialzine.com/2013/05/mini-ajax-file-upload-form/',
-                title: 'Mini AJAX File Upload Form',
-                image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/05/ajax-file-upload-form-100x100.jpg'
-            }, {
-                url: 'http://tutorialzine.com/2013/04/services-chooser-backbone-js/',
-                title: 'Your First Backbone.js App – Service Chooser',
-                image: 'http://cdn.tutorialzine.com/wp-content/uploads/2013/04/service_chooser_form-100x100.jpg'
-        }];
+        var me = this;
+        this.changeTheater = function (_id, _name) {
+            me.curTheaterId = _id;
+            me.active = _name.toLowerCase();
+        };
 
+
+        this.theaters = [{
+                "id": "2030c64ce72b4e4605cb01f2ba405b7d",
+                "name": "Arclight",
+                "showtimes": {
+                    "b4c2c326a4d335da654d4fd944bf88d0": [
+                        "11:30 pm", "2:45 pm", "8:35 pm", "4:15 pm", "10:30 pm"
+                    ],
+                    "f94447a9a91123041f6eb0679f01d80d": [
+                        "10:30 am", "6:20 pm", "2:25 pm", "9:40 pm"
+                    ],
+                    "56a14924d53cc5f82f75505b52deffbd": [
+                        "10:00 am", "12:30 pm", "5:25 pm", "3:30 pm", "9:15 pm", "11:55 pm"
+                    ],
+                    "52208a5a1900898799ddef74d62ca710": [
+                        "12:20 pm", "12:50 pm", "5:15 pm", "3:50 pm", "9:55 pm", "12:35 am"
+                    ],
+                    "bb768d6cd40339bd98c948be36ed8fe7": [
+                        "12:05 pm", "8:30 am", "7:25 pm", "4:10 pm", "9:25 pm", "1:25 pm"
+                    ],
+                    "eb97596c1083cce466f1c664994983bb": [
+                        "11:00 am", "2:35 pm", "5:35 pm", "3:10 pm", "9:25 pm", "11:25 pm"
+                    ],
+                    "1150762c2724f57b7cf83b5cb5c9fad5": [
+                        "10:45 am", "12:15 pm", "5:40 pm", "11:20 am", "8:05 pm"
+                    ]
+                }
+            }, {
+                "id": "58f3356c0ffe87bcb324454056587b67",
+                "name": "Pacific Theatres",
+                "showtimes": {
+                    "f94447a9a91123041f6eb0679f01d80d": [
+                        "11:30 pm", "2:45 pm", "8:35 pm", "4:15 pm", "10:30 pm"
+                    ],
+                    "56a14924d53cc5f82f75505b52deffbd": [
+                        "10:30 am", "6:20 pm", "2:25 pm", "9:40 pm"
+                    ],
+                    "52208a5a1900898799ddef74d62ca710": [
+                        "12:05 pm", "8:30 am", "7:25 pm", "4:10 pm", "9:25 pm", "1:25 pm"
+                    ],
+                    "83eca80b80a52736a16663dded65e5f2": [
+                        "12:20 pm", "12:50 pm", "5:15 pm", "3:50 pm", "9:55 pm", "12:35 am"
+                    ],
+                    "bb768d6cd40339bd98c948be36ed8fe7": [
+                        "10:40 am", "6:30 pm", "2:15 pm", "9:45 pm"
+                    ],
+                    "eb97596c1083cce466f1c664994983bb": [
+                        "9:30 am", "11:20 pm", "5:25 pm", "11:10 am", "8:15 pm"
+                    ],
+                    "1150762c2724f57b7cf83b5cb5c9fad5": [
+                        "10:00 am", "12:30 pm", "5:25 pm", "3:30 pm", "9:15 pm", "11:55 pm"
+                    ]
+                }
+            }, {
+                "id": "af3de16703f2af385a6941de07f076a0",
+                "name": "AMC",
+                "showtimes": {
+                    "440cc42b43bbcb8b5d38fbdede9e22f1": [
+                        "11:00 am", "2:35 pm", "5:35 pm", "3:10 pm", "9:25 pm", "11:25 pm"
+                    ],
+                    "b4c2c326a4d335da654d4fd944bf88d0": [
+                        "10:00 am", "12:30 pm", "5:25 pm", "3:30 pm", "9:15 pm", "11:55 pm"
+                    ],
+                    "f94447a9a91123041f6eb0679f01d80d": [
+                        "10:45 am", "12:15 pm", "5:40 pm", "11:20 am", "8:05 pm"
+                    ],
+                    "56a14924d53cc5f82f75505b52deffbd": [
+                        "10:30 am", "6:20 pm", "2:25 pm", "9:40 pm"
+                    ],
+                    "52208a5a1900898799ddef74d62ca710": [
+                        "12:20 pm", "12:50 pm", "5:15 pm", "3:50 pm", "9:55 pm", "12:35 am"
+                    ],
+                    "83eca80b80a52736a16663dded65e5f2": [
+                        "9:30 am", "11:20 pm", "5:25 pm", "11:10 am", "8:15 pm"
+                    ],
+                    "bb768d6cd40339bd98c948be36ed8fe7": [
+                        "12:05 pm", "8:30 am", "7:25 pm", "4:10 pm", "9:25 pm", "1:25 pm"
+                    ]
+                }
+            }]
+        ;
+        this.curTheaterId = this.theaters[0].id;
+        this.active = this.theaters[0].name.toLowerCase();
+
+        this.movies  = [{
+                "id": "440cc42b43bbcb8b5d38fbdede9e22f1",
+                "title": "The Great Wall",
+                "rating": "PG-13",
+                "poster": "https://dl.dropboxusercontent.com/s/0zs1xh77m9g0fmx/the_great_wall.jpg"
+            }, {
+                "id": "b4c2c326a4d335da654d4fd944bf88d0",
+                "title": "Fifty Shades Darker",
+                "rating": "R",
+                "poster": "https://dl.dropboxusercontent.com/s/dt6wgt92cu9wqcr/fifty_shades_darker.jpg"
+            }, {
+                "id": "f94447a9a91123041f6eb0679f01d80d",
+                "title": "Doctor Strange",
+                "rating": "PG-13",
+                "poster": "https://dl.dropboxusercontent.com/s/tt2523gcspjr7l7/doctor_strange.jpg"
+            }, {
+                "id": "56a14924d53cc5f82f75505b52deffbd",
+                "title": "Nocturnal Animals",
+                "rating": "R",
+                "poster": "https://dl.dropboxusercontent.com/s/k2oyo7iez0fl88j/nocturnal_animals.jpg"
+            }, {
+                "id": "52208a5a1900898799ddef74d62ca710",
+                "title": "Jurassic World",
+                "rating": "PG-13",
+                "poster": "https://dl.dropboxusercontent.com/s/xptvkca3epeh9z0/jurassic_world.jpg"
+            }, {
+                "id": "83eca80b80a52736a16663dded65e5f2",
+                "title": "Suicide Squad",
+                "rating": "R",
+                "poster": "https://dl.dropboxusercontent.com/s/qs0rnitbjc2cccu/suicide_squad.jpg"
+            }, {
+                "id": "bb768d6cd40339bd98c948be36ed8fe7",
+                "title": "War Dogs",
+                "rating": "R",
+                "poster": "https://dl.dropboxusercontent.com/s/bf49uxvt4ys020p/war_dogs.jpg"
+            }, {
+                "id": "eb97596c1083cce466f1c664994983bb",
+                "title": "Mad Max: Fury Road",
+                "rating": "R",
+                "poster": "https://dl.dropboxusercontent.com/s/dk1q22xef2o70o4/mad_max.jpg"
+            }, {
+                "id": "1150762c2724f57b7cf83b5cb5c9fad5",
+                "title": "Anthropoid",
+                "rating": "R",
+                "poster": "https://dl.dropboxusercontent.com/s/y4jhi3fd21r4l15/anthropoid.jpg"
+            }]
+        ;
     });
